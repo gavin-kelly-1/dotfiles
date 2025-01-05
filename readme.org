@@ -2,10 +2,9 @@
 
 #+begin_src sh :
   cd ~
-  git clone  --bare  git@github.com:gavin-kelly-1/dotfiles.git .dotgit
+  git clone  git@github.com:gavin-kelly-1/dotfiles.git tmp-dotfiles
+  rsync tmp-dotfiles/ .
   wuser=`powershell.exe '$env:UserName'`
-  alias dotgit='/usr/bin/git --git-dir=$HOME/.dotgit/ --work-tree=$HOME'
-  dotgit checkout
   cp  /mnt/c/Users/$wuser/OneDrive/dotfiles/ssh/id_rsa .ssh/
   chmod 700 ~/.ssh
   chmod 600 ~/.ssh/id_rsa; chmod 600 ~/.ssh/id_rsa.pub
