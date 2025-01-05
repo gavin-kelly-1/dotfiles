@@ -1,9 +1,10 @@
 ** dotfiles
 
 #+begin_src sh :
-  wuser=gavin
-  alias dotgit='/usr/bin/git --git-dir=$HOME/.dotgit/ --work-tree=$HOME'
+  cd ~
   git clone  --bare  git@github.com:gavin-kelly-1/dotfiles.git .dotgit
+  wuser=`powershell.exe '$env:UserName'`
+  alias dotgit='/usr/bin/git --git-dir=$HOME/.dotgit/ --work-tree=$HOME'
   dotgit checkout
   cp  /mnt/c/Users/$wuser/OneDrive/dotfiles/ssh/id_rsa .ssh/
   chmod 700 ~/.ssh
