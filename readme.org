@@ -1,0 +1,23 @@
+** dotfiles
+
+#+begin_src sh :
+  wuser=gavin
+  alias dotgit='/usr/bin/git --git-dir=$HOME/.dotgit/ --work-tree=$HOME'
+  git clone  --bare  git@github.com:gavin-kelly-1/dotfiles.git .dotgit
+  dotgit checkout
+  cp  /mnt/c/Users/$wuser/OneDrive/dotfiles/ssh/id_rsa .ssh/
+  chmod 700 ~/.ssh
+  chmod 600 ~/.ssh/id_rsa; chmod 600 ~/.ssh/id_rsa.pub
+  cp /mnt/c/Users/$wuser/OneDrive/dotfiles/bash/secrets ~/.secrets
+#+end_src
+
+
+** Fonts
+
+#+begin_src sh :
+  for f in Monaspace JetBrainsMono Iosevka; do
+      wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/$f.zip
+      unzip $f.zip -d ~/.fonts
+      rm -f $f.zip
+  done
+#+end_src

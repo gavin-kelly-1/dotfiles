@@ -24,4 +24,4 @@ alias ,bash=babs-conshell
 
 alias ta='tmux attach -t'
 #alias tl='tmux list-sessions -F "#{session_last_attached} #{p10:session_name}   #{t/f/%e %b:session_last_attached} #{s|/nemo/stp/babs/working/kellyg/projects|\$p|:session_path}" | sort -k1 | cut -d" " -f2-; echo -n "Emacs daemons: "; ls /run/user/${UID}/emacs; singularity instance list 2>/dev/null | awk -F "  +" '\''NR>1{sub(".*/", "", $3); print $1":  "$3}'\''  ; [[ ${PIPESTATUS[0]} = 0 ]] || echo "No Singularity"'
-alias dotgit=\'git --git-dir=$HOME/.dotgit/ --work-tree=/home/kellyg\'
+alias dotgit='git --git-dir=$HOME/.dotgit/ --work-tree=/home/kellyg'
