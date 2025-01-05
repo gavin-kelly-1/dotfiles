@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: rmd
+# key: rmd
+# --
+rmarkdown::render("${1:`(file-name-nondirectory (buffer-file-name (other-buffer (current-buffer) t)))`}",
+output_file = "${1:$(concat (file-name-base yas-text) "_" (magit-git-string '("describe" "--always" "--tags")) )}.html", output_options = list(self_contained=FALSE))
+fs::file_move(c("${1:$(concat (file-name-base yas-text) "_" (magit-git-string '("describe" "--always" "--tags")) )}.html", "${1:$(concat (file-name-base yas-text) "_" (magit-git-string '("describe" "--always" "--tags")) )}_files"),  "results/`(magit-git-string "tag")`)")

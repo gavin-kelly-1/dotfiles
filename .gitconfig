@@ -1,0 +1,22 @@
+[user]
+	name = Gavin Kelly
+	email = gavin.kelly@crick.ac.uk
+	signingkey = CC8F50DC
+	
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[alias]
+	v = describe --dirty=-M --tags --always
+	issue = !/camp/stp/babs/working/kellyg/code/git-issue/git-issue.sh
+[credential]
+	helper = cache
+[github]
+	user = gavin-kelly-1
+[core]
+	excludesfile = /camp/home/kellyg/.gitignore
+[tag]
+	sort = -version:refname
+[push]
+	autoSetupRemote = true

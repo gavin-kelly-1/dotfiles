@@ -1,0 +1,112 @@
+has() {
+        command -v "$1" 1>/dev/null 2>&1
+}
+
+function l ()
+{
+    file_or_dir=${1-.}
+    if [ "$#" -ne 1 ]; then
+	ls -Hlrt "$@";
+    else
+	if [ -d "${file_or_dir}" ]
+	then ls -Hlrt "${file_or_dir}";
+	else less "${file_or_dir}";
+	fi
+    fi
+}
+
+
+function tl ()
+{
+    tmux list-sessions -F "#{session_last_attached} #{p10:session_name}   #{t/f/%e %b:session_last_attached} #{s|/nemo/stp/babs/working/kellyg/projects|\$p|:session_path}" | sort -k1 | cut -d" " -f2-
+    tmux list-sessions 1>/dev/null && tmux list-sessions -F "export PROJECT=#{session_name}; tmux new -d -s #{session_name} -c #{session_path}" > ~/.tmux.$(hostname).sessions.sh || true
+    em=`ls -C /run/user/${UID}/emacs`
+    if [[ -z "$em" ]]
+    then
+	echo "No emacs servers running"
+    else
+	echo "Emacs daemons: $em"
+    fi
+}
+
+function tn ()
+{
+    tmux new -s "$1" -e PROJECT="$1" -e SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
+}
+
+
+function tup {
+    export DISPLAY="`tmux show-env | sed -n 's/^DISPLAY=//p'`"
+    export SSH_CLIENT="`tmux show-env | sed -n 's/^SSH_CLIENT=//p'`"
+    echo "Sys.setenv(DISPLAY=\"$DISPLAY\") # To update any old R sessions"
+}
+
+
+function int ()
+{
+    srun --ntasks=1 --cpus-per-task=1 --partition=int --time=12:00:0 --x11 --mem=16G --pty bash
+}
+
+function dint ()
+{
+    disp=$(echo $DISPLAY | sed -r 's/localhost:([0-9]+).*/\1/')
+    local cpus="${1:-1}"
+    local mem="${2:-16}"
+    dtach -c dtach-`basename $PWD`-$disp-$HOSTNAME srun -J `basename $PWD` --ntasks=1 --cpus-per-task=${cpus} --partition=int --time=12:00:0 --x11 --mem=${mem}G --pty bash -i
+    }
+
+function shing {
+    has singularity || module load Singularity/3.6.4
+    singularity shell \
+  --bind ${my_lab},/tmp,${my_lab}working/software/renv,${my_lab}working/kellyg/code/R/rocker.Renviron:/usr/local/lib/R/etc/Renviron.site,${HOME}/.emacs.d,${HOME}/.Xauthority,${HOME}/.fonts\
+  --pwd ${PWD} \
+  --containall \
+  --cleanenv \
+  --env DISPLAY=${DISPLAY} \
+${my_lab}working/kellyg/code/singularity/emacs-verse_4.2.2.sif
+}
+
+################################################################
+#### Interact with project directories
+################################################################
+#Find all project directories that confirm to standard format, filtering by possible argument to function
+function lpro ()
+{
+    if [ "$#" -eq 1 ]; then
+find $my_projects -maxdepth 3 -mindepth 3 -type d -not -path '*/\.*'  | cut -f2 -d$'\t' |  grep ${1:-.}
+else
+    find $my_projects -maxdepth 3 -mindepth 3 -type d -not -path '*/\.*' -printf '%T+\t%P\n' | sort | cut -f2 -d$'\t' | column -t -s '/.' | grep ${1:-.}
+    fi
+}
+
+#cd to project directory that matches the first argument
+function cdpro ()
+{
+cd $my_projects$(find $my_projects -maxdepth 3 -mindepth 1 -type d -not -path  '*/\.*' -iname \*$1\* -printf '%P\n' | tail -1)
+}
+
+  
+function internal {
+  if [ -z "$1" ] ; then 
+  pwd | sed 's#working#www/html/internal/users#'
+  else
+  pwd | sed "s#${my_lab}working#https://bioinformatics.thecrick.org/users#"
+  fi
+}
+
+function external {
+  if [ -z "$1" ] ; then 
+  pwd | sed 's#working#www/html/external/users#'
+  else
+  pwd | sed "s#${my_lab}working#https://bioinformatics.crick.ac.uk/users#"
+  fi
+}
+
+function outputs {
+  pwd | sed "s#working/kellyg/projects#outputs#" | sed "s#\(.*\)/#\1/gavin.kelly/#"
+}
+
+function scratch {
+  pwd | sed 's#working#scratch#'
+}
+

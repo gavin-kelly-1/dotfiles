@@ -1,0 +1,7 @@
+--max-columns=150
+--max-columns-preview
+
+--type-add
+r:*.{qmd,rmd,Qmd}
+
+--smart-case

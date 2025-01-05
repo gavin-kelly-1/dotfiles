@@ -1,0 +1,4 @@
+<[issues]> <github-reference (concat "BABS-STP/" (org-entry-get nil "ID") "/issues")>
+
+<[latest]> <call-process "wslview" nil nil nil (concat "https://bioinformatics.thecrick.org/users/" (org-entry-get nil "wdir") "/latest")>
+

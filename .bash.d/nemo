@@ -1,0 +1,33 @@
+export MODULEPATH=/nemo/stp/babs/working/kellyg/home/.local/easybuild/modules/all:\
+/flask/apps/misc/modules:\
+/flask/apps/eb/modules/all:\
+/usr/share/Modules/modulefiles:\
+/usr/share/lmod/lmod/modulefiles/Core
+
+export XAUTHORITY=~/.Xauthority
+export HTTP_PROXY="http://10.28.7.200:3128"
+export HTTPS_PROXY="http://10.28.7.200:3128"
+export http_proxy="$HTTP_PROXY"
+export https_proxy="$HTTPS_PROXY"
+
+
+export my_working=${my_lab}working/$USER/
+export tpl=${my_working}projects/github/FrancisCrickInstitute/templates/
+export template_config=${my_working}templates/template.mk
+w=${my_working}
+l=${my_lab}
+
+export NXF_HOME=${my_working}code/nextflow
+export JULIA_PKGDIR=${my_working}code/julia/library
+export JULIA_DEPOT_PATH=${my_working}code/julia/library
+
+if [ -d "${my_working}code/bin" ]; then
+    export PATH=${my_working}code/bin:$PATH
+fi
+
+export scratch=/flask/scratch/babs/kellyg/
+export links=${my_lab}working/bioinformatics
+
+
+my_projects=${my_working}projects/
+p=${my_projects}

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ulfrag
+# key: ulfrag
+# --
+<ul>
+  <li class="fragment semi-fade-out" data-fragment-index="1">$0</li>
+  <li class="fragment fade-in-then-semi-out" data-fragment-index="1"></li>
+  <li class="fragment fade-in-then-semi-out"></li>
+  <li class="fragment"></li>
+</ul>

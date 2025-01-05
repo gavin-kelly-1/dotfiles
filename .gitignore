@@ -1,0 +1,10 @@
+# Emacs
+*~
+\#*\#
+.\#*
+.~
+*.~undo-tree~
+
+# Generic 
+slurm*.out
+.nextflow*
