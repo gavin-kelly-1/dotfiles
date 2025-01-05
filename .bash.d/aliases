@@ -4,7 +4,7 @@ alias prompt='unset PROMPT_COMMAND; stty igncr -echo'
 
 alias rm="rm -i"
 
-if [[$TERM == "dumb" ]]; then
+if [[ "$TERM" == "dumb" ]]; then
     PS1='$ '
 else
     PS1="[\h \W]\$ "
