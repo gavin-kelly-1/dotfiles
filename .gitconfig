@@ -14,8 +14,6 @@
 	helper = cache
 [github]
 	user = gavin-kelly-1
-[core]
-	excludesfile = /camp/home/kellyg/.gitignore
 [tag]
 	sort = -version:refname
 [push]

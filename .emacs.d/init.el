@@ -46,6 +46,7 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(setq byte-compile-warnings nil)
 ;; Appearance
 
 
@@ -887,7 +888,7 @@ The DWIM behaviour of this command is as follows:
 (require 'transient)
 (load-file (expand-file-name "gpk/slurm.el" user-emacs-directory))
 (load-file (expand-file-name "gpk/slurm-transient.el" user-emacs-directory))
-
+(load-file (expand-file-name "gpk/doit.el" user-emacs-directory))
 
 ;;; Interacting with .babs
 
