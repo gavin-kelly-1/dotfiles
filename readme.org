@@ -8,6 +8,7 @@
   sudo apt install emacs-lucid wslu ripgrep unzip
 #+end_src
 
+For SSH WSL2, [[https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/]] worked.
 
 ** dotfiles
 
@@ -22,7 +23,6 @@
   cp /mnt/c/Users/$wuser/OneDrive/dotfiles/bash/secrets ~/.secrets
 #+end_src
 
-
 ** Fonts
 
 #+begin_src sh :
@@ -34,4 +34,72 @@
   fc-cache -f -v
 #+end_src
 
+** BABS new-start
+*** Initial setup
 
+#+begin_src sh :
+    for d in /nemo/stp/babs/working /flask/scratch/babs; do
+        [[ -d $d/${USER} ]] || echo Contact HPC and ask them to set up your area in $d
+    done
+
+    for d in /nemo/stp/babs/www/{shiny,html}/{in,ex}ternal/users/; do
+        [[ -d $d/${USER} ]] || echo You don\'t have a folder in $d - this might need setting up
+    done
+  
+    # Don't encourage the use of an symbolic path to working that gets set up by IT but causes problems
+    if [[  -L ~/home ]]; then rm -f ~/home; fi
+    # If you really need that link, then ideally put one of the following in your login script  (~/.bashrc)
+    # to prevent `pwd` etc accidentally reporting paths via ~ that no-one else can use:
+    # alias cd='cd -P'
+    # set -o physical
+
+    # But overall, it's probably better to switch directly to 'working' via a line in your login script, e.g.
+    # cd /nemo/stp/babs/working/${USER} || echo "User's working folder doesn't appear to be available"
+#+end_src
+
+*** Home links
+
+#+begin_src sh :
+  ln -sfn bin -> /nemo/stp/babs/working/${USER}/code/bin/
+  # pseudo_home is somewhere you might want to store cache's, configs, state that might otherwise fill your limited `~` quota
+  pseudo_home=/nemo/stp/babs/working/${USER}/home
+  # Some known candidates 
+  dotdirs=cargo conda deno java jupyter ncbi nfcore rstudio singularity TinyTex
+  mkdir -p $pseudo_home
+  for d in ${dotdirs}; do
+      mkdir $pseudo_home/.$d
+      ln -sfn $pseudo_home/.$d ~/.$d
+  done
+#+end_src
+
+*** Environment variables
+
+#+begin_src sh :
+  OUR_SCRATCH=/flask/scratch/babs/bioinformatics
+  MY_SCRATCH=/flask/scratch/babs/${USER}
+
+  # general
+  export XDG_CACHE_HOME=${MY_SCRATCH}/XDG_CACHE_HOME
+  mkdir -p $XDG_CACHE_HOME
+
+  # Singularity
+  export SINGULARITY_CACHEDIR=${OUR_SCRATCH}/SINGULARITY_CACHEDIR
+  mkdir -p $SINGULARITY_CACHEDIR
+  # Apptainer
+  export APPTAINER_CACHEDIR=${OUR_SCRATCH}/SINGULARITY_CACHEDIR
+
+
+  # Conda
+  export CONDA_ENVS_PATH=${OUR_SCRATCH}/CONDA_ENVS
+  mkdir -p $CONDA_ENVS_PATH
+  export CONDA_PKGS_DIRS=${OUR_SCRATCH}/CONDA_PKGS
+  mkdir -p $CONDA_PKGS_DIRS
+
+  # Nextflow / nf-core
+  export NXF_SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR}
+  export NXF_SINGULARITY_LIBRARYDIR=/flask/apps/containers/all-singularity-images 
+
+  # renv
+  export RENV_PATHS_ROOT=/nemo/stp/babs/working/software/renv
+  export RENV_PATHS_PREFIX_AUTO=TRUE
+#+end_src

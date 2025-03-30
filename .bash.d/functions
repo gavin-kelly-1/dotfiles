@@ -18,7 +18,7 @@ function l ()
 
 function tl ()
 {
-    tmux list-sessions -F "#{session_last_attached} #{p10:session_name}   #{t/f/%e %b:session_last_attached} #{s|/nemo/stp/babs/working/kellyg/projects|\$p|:session_path}" | sort -k1 | cut -d" " -f2-
+    tmux list-sessions -F "#{session_last_attached} #{p10:session_name}   #{t/f/%e %b:session_last_attached} #{s|/nemo/stp/babs/working/${USER}/projects|\$p|:session_path}" | sort -k1 | cut -d" " -f2-
     tmux list-sessions 1>/dev/null && tmux list-sessions -F "export PROJECT=#{session_name}; tmux new -d -s #{session_name} -c #{session_path}" > ~/.tmux.$(hostname).sessions.sh || true
     em=`ls -C /run/user/${UID}/emacs`
     if [[ -z "$em" ]]
@@ -37,6 +37,7 @@ function tn ()
 
 function tup {
     export DISPLAY="`tmux show-env | sed -n 's/^DISPLAY=//p'`"
+    export SINGULARITYENV_DISPLAY="`tmux show-env | sed -n 's/^DISPLAY=//p'`"
     export SSH_CLIENT="`tmux show-env | sed -n 's/^SSH_CLIENT=//p'`"
     echo "Sys.setenv(DISPLAY=\"$DISPLAY\") # To update any old R sessions"
 }
@@ -55,16 +56,6 @@ function dint ()
     dtach -c dtach-`basename $PWD`-$disp-$HOSTNAME srun -J `basename $PWD` --ntasks=1 --cpus-per-task=${cpus} --partition=int --time=12:00:0 --x11 --mem=${mem}G --pty bash -i
     }
 
-function shing {
-    has singularity || module load Singularity/3.6.4
-    singularity shell \
-  --bind ${my_lab},/tmp,${my_lab}working/software/renv,${my_lab}working/kellyg/code/R/rocker.Renviron:/usr/local/lib/R/etc/Renviron.site,${HOME}/.emacs.d,${HOME}/.Xauthority,${HOME}/.fonts\
-  --pwd ${PWD} \
-  --containall \
-  --cleanenv \
-  --env DISPLAY=${DISPLAY} \
-${my_lab}working/kellyg/code/singularity/emacs-verse_4.2.2.sif
-}
 
 ################################################################
 #### Interact with project directories
@@ -103,10 +94,7 @@ function external {
 }
 
 function outputs {
-  pwd | sed "s#working/kellyg/projects#outputs#" | sed "s#\(.*\)/#\1/gavin.kelly/#"
+  pwd | sed "s#working/${USER}/projects#outputs#" | sed "s#\(.*\)/#\1/${EMAIL_NAME}/#"
 }
 
-function scratch {
-  pwd | sed 's#working#scratch#'
-}
 

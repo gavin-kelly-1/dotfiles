@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: If-Then-Else
-# key: ifte
-# --
-if [ -f $1 ]; then \
-  $0 ;\
-else \
-  $2 ;\
-fi \

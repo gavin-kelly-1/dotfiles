@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: ggplot
-# key: gg
-# --
-ggplot(data=$1, aes($2)) + geom_$3()

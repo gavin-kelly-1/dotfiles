@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Version History Heading
-# key: version
-# --
-## [Version $1](../$1/index.html)
