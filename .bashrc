@@ -1,15 +1,24 @@
+# Terminal settings
+if [[ "$TERM" == "dumb" ]]; then
+    PS1='$ '
+else
+    PS1="[\h \W]\$ "
+fi
+shopt -s direxpand
+export IGNOREEOF=5
+
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
 if [ -f "$HOME/.secrets" ]; then 
-    source $HOME/.secrets #Things I don't need on github, e.g. my_lab, SLACK_URL
+    source $HOME/.secrets #Things I don't need on github, e.g. _lab, EMAIL, GITHUB_PAT...
 fi
 
-shopt -s direxpand
 
-extra="nemo aliases functions emacs singularity"
+extra="nemo functions aliases emacs singularity nextflow r"
 for e in $extra; do
   if [ -f ~/.bash.d/$e ]; then
     . ~/.bash.d/$e
@@ -17,33 +26,19 @@ for e in $extra; do
 done
 
 
-export IGNOREEOF=5
-
-#export LIBGL_ALWAYS_INDIRECT=1
-#export RVERSION=4.2.2
-
-
-#export PYTHONPATH=$PYTHONPATH:${my_lab}working/patelh/code/PYTHON/
-
-
-export RIPGREP_CONFIG_PATH=~/.ripgreprc
-
-
-
 if [ -f ~/.cargo/env ]; then	    
  . ~/.cargo/env
 fi
 
-
-if [ -d "$my_working" ] && [ -z "$TMUX" ] ; then
-    cd $my_working
+## Move to the default working location
+if [ -d "$_working" ] && [ -z "$TMUX" ] ; then
+    cd $_working
 fi
    
 
+export MAMBA_EXE=${_lab}/working/$USER/home/bin/micromamba
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'micromamba shell init' !!
-export MAMBA_EXE='/nemo/stp/babs/working/kellyg/home/bin/micromamba';
-export MAMBA_ROOT_PREFIX='/nemo/stp/babs/working/kellyg/home/share/micromamba';
 __mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
@@ -57,8 +52,6 @@ if [ -f "$MAMBA_EXE" ]; then
     micromamba activate dev
 fi
 
-
-export PATH="/nemo/stp/babs/working/kellyg/home/bin:$PATH"
 
 # >>> juliaup initialize >>>
 

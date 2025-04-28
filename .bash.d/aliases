@@ -1,27 +1,22 @@
-alias ts="make -f ${my_lab}working/time/makefile"
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias prompt='unset PROMPT_COMMAND; stty igncr -echo'
-
+## Over-rides
 alias rm="rm -i"
-
-if [[ "$TERM" == "dumb" ]]; then
-    PS1='$ '
-else
-    PS1="[\h \W]\$ "
-fi
-
-alias cdw="cd $my_working"
-alias r='R --no-save --no-restore'
-alias dirs='dirs -v | sed "s;$my_projects;;g"'
-alias duh="du -d 1 -h | sort -h"
-
-alias mm=micromamba
-
-alias ,r=babs-R
-alias ,bash=babs-conshell
+alias cp="cp --no-preserve=mode"
+alias dirs='dirs -v | sed "s;$_projects;;g"'
 
 
+## BABS aliases
+alias ,,ts="make -f ${_lab}/working/time/makefile"
 
-alias ta='tmux attach -t'
+
+## Personal aliases
+alias ,config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias ,cdw="cd $_working"
+alias ,duh="du -d 1 -h | sort -h"
+alias ,mm=micromamba
+
+alias ,r=alias_r
+alias ,shell=alias_shell
+
+
 
 

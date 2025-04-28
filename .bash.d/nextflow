@@ -1,0 +1,3 @@
+export NXF_SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR}
+export NXF_SINGULARITY_LIBRARYDIR=/flask/apps/containers/all-singularity-images 
+export NXF_HOME=$XDG_DATA_HOME/nextflow

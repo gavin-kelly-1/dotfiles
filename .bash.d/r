@@ -1,0 +1,2 @@
+export RENV_PATHS_ROOT=${_lab}/working/software/renv
+export RENV_PATHS_PREFIX_AUTO=TRUE

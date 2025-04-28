@@ -1,21 +1,23 @@
-export my_working=${my_lab}working/$USER/
-export my_projects=${my_working}projects/
-export my_scratch=/flask/scratch/babs/${USER}
-export babs_share=${my_lab}working/bioinformatics
+_working=${_lab}/working/$USER/
+_projects=${_working}projects/
+__share=${_lab}/working/bioinformatics
 
-w=${my_working}
-l=${my_lab}
-p=${my_projects}
+EMAIL_NAME=${EMAIL%@crick.ac.uk}
+
+_w=${_working}
+_l=${_lab}
+_p=${_projects}
+
+__scratch=/flask/scratch/babs/bioinformatics
+_scratch=/flask/scratch/babs/${USER}
+  
+export XDG_DATA_HOME=${_working}home/share
+export XDG_CONFIG_HOME=${_working}home/config
+export XDG_STATE_HOME=${_working}home/state
+export XDG_CACHE_HOME=${_working}home/cache
 
 
-export XDG_DATA_HOME=${my_working}home/share
-export XDG_CONFIG_HOME=${my_working}home/config
-export XDG_STATE_HOME=${my_working}home/state
-export XDG_CACHE_HOME=${my_working}home/cache
-
-
-
-export MODULEPATH=${my_working}home/easybuild/modules/all:\
+export MODULEPATH=${_working}home/easybuild/modules/all:\
 /flask/apps/misc/modules:\
 /flask/apps/eb/modules/all:\
 /usr/share/Modules/modulefiles:\
@@ -28,13 +30,15 @@ export http_proxy="$HTTP_PROXY"
 export https_proxy="$HTTPS_PROXY"
 
 
-export tpl=${my_working}projects/github/FrancisCrickInstitute/templates/
-export template_config=${my_working}templates/template.mk
+_tpl=${_working}projects/github/FrancisCrickInstitute/templates/
 
 
-if [ -d "${my_working}code/bin" ]; then
-    export PATH=${my_working}code/bin:$PATH
+if [ -d "${_working}code/bin" ]; then
+    export PATH=${_working}code/bin:$PATH
 fi
+
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
+
 
 
 
@@ -51,6 +55,5 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 
 export SQLITE_HISTORY="$XDG_CACHE_HOME"/sqlite_history
 
-export NXF_HOME=$XDG_DATA_HOME/nextflow
 export JULIA_DEPOT_PATH=$XDG_DATA_HOME/julia:
 export MAMBA_ROOT_PREFIX=$XDG_DATA_HOME/micromamba

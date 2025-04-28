@@ -72,34 +72,3 @@ For SSH WSL2, [[https://stuartleeks.com/posts/wsl-ssh-key-forward-to-windows/]] 
   done
 #+end_src
 
-*** Environment variables
-
-#+begin_src sh :
-  OUR_SCRATCH=/flask/scratch/babs/bioinformatics
-  MY_SCRATCH=/flask/scratch/babs/${USER}
-
-  # general
-  export XDG_CACHE_HOME=${MY_SCRATCH}/XDG_CACHE_HOME
-  mkdir -p $XDG_CACHE_HOME
-
-  # Singularity
-  export SINGULARITY_CACHEDIR=${OUR_SCRATCH}/SINGULARITY_CACHEDIR
-  mkdir -p $SINGULARITY_CACHEDIR
-  # Apptainer
-  export APPTAINER_CACHEDIR=${OUR_SCRATCH}/SINGULARITY_CACHEDIR
-
-
-  # Conda
-  export CONDA_ENVS_PATH=${OUR_SCRATCH}/CONDA_ENVS
-  mkdir -p $CONDA_ENVS_PATH
-  export CONDA_PKGS_DIRS=${OUR_SCRATCH}/CONDA_PKGS
-  mkdir -p $CONDA_PKGS_DIRS
-
-  # Nextflow / nf-core
-  export NXF_SINGULARITY_CACHEDIR=${SINGULARITY_CACHEDIR}
-  export NXF_SINGULARITY_LIBRARYDIR=/flask/apps/containers/all-singularity-images 
-
-  # renv
-  export RENV_PATHS_ROOT=/nemo/stp/babs/working/software/renv
-  export RENV_PATHS_PREFIX_AUTO=TRUE
-#+end_src

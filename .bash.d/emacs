@@ -1,7 +1,7 @@
 ################################################################
 #### Emacs
 ################################################################
-export DICPATH=${my_lab}working/docs
+export DICPATH=${_lab}/working/docs
 
 export ALTERNATE_EDITOR=""
 

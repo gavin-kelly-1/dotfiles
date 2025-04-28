@@ -18,6 +18,5 @@
 	sort = -version:refname
 [push]
 	autoSetupRemote = true
-[safe]
-	directory = /nemo/stp/babs/working/gilmort/projects/sahaie/becki.lee/bl810
-	directory = *
+[core]
+	excludesFile = /nemo/stp/babs/working/kellyg/home/config/git/gitignore

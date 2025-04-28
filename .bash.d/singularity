@@ -1,0 +1,10 @@
+export SINGULARITY_BIND="$HOME/.Xauthority,$HOME/.Xdefaults,$HOME/.Xresources,${XDG_CONFIG_HOME}/emacs,$HOME/.ssh"
+export SINGULARITYENV_DISPLAY=$DISPLAY
+export SINGULARITY_CONFIGDIR="$XDG_CONFIG_HOME/singularity"
+export SINGULARITY_CACHEDIR="$XDG_CACHE_HOME/singularity"
+
+
+
+## Perhaps would be better to be on scratch - but untested
+#export SINGULARITY_CACHEDIR=${__scratch}/SINGULARITY_CACHEDIR
+#export APPTAINER_CACHEDIR=${__scratch}/SINGULARITY_CACHEDIR
